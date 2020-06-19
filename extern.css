@@ -101,11 +101,13 @@ button {
   animation: bg-scroll 10s infinite linear;
 }
 
-/* textarea {
+textarea {
     background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Jason_Statham_2007.jpg/532px-Jason_Statham_2007.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
     height: 100%;
-} */
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+}
