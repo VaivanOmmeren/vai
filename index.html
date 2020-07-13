@@ -5,88 +5,90 @@
 </head>
 
 <body>
-    <marquee>
-        <h1 class="blink_me" style='text-align: center;'>Fontys Application</h1>
-    </marquee>
+    <div class="superWrapper">
+        <marquee>
+            <h1 class="blink_me" style='text-align: center;'>Fontys Application</h1>
+        </marquee>
 
-    <p style="text-align: center;">API Key:</p>
-    <input id="X-API-KEY" style="display: block; margin-right: auto; margin-left: auto;"> </input>
+        <p style="text-align: center;">API Key:</p>
+        <input id="X-API-KEY" style="display: block; margin-right: auto; margin-left: auto;"> </input>
 
-    <div class="tab">
-        <button class="tablinks" onclick="openTab(event, 'GET')">GET shipment</button>
-        <button class="tablinks" onclick="openTab(event, 'POST')">POST shipment</button>
-    </div>
-
-    <div id="GET" class="tabcontent">
-        <h3>GET Shipment</h3>
-
-        <p style="text-align: center;">Shipment ID</p>
-        <input id="shipmentGETId" style="display: block; margin-right: auto; margin-left: auto;"> </input>
-
-        <button>Get shipment</button>
-
-        <p id="getStatus" style="text-align: center;">Response: </p>
-        <textarea readonly style="display: none; " id="responseArea" cols="100" rows="25"> </textarea>
-    </div>
-
-    <div id="POST" class="tabcontent">
-        <h3>POST Shipment</h3>
-
-        <p style="text-align: center;">Shipment data</p>
-        <div id="rich" style="display: block; margin-right: auto; margin-left: auto;">
-            <textarea id="jsonArea" cols="100" rows="25"> </textarea>
-            <button onclick="prettyPrint()">beautify</button>
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'GET')">GET shipment</button>
+            <button class="tablinks" onclick="openTab(event, 'POST')">POST shipment</button>
         </div>
 
-        <button>Create Shipment</button>
+        <div id="GET" class="tabcontent">
+            <h3>GET Shipment</h3>
 
-        <p id="postStatus" style="text-align: center;">Response: </p>
-        <textarea readonly style="display: none; " id="postResponseArea" cols="100" rows="25"> </textarea>
+            <p style="text-align: center;">Shipment ID</p>
+            <input id="shipmentGETId" style="display: block; margin-right: auto; margin-left: auto;"> </input>
 
+            <button>Get shipment</button>
+
+            <p id="getStatus" style="text-align: center;">Response: </p>
+            <textarea readonly style="display: none; " id="responseArea" cols="100" rows="25"> </textarea>
+        </div>
+
+        <div id="POST" class="tabcontent">
+            <h3>POST Shipment</h3>
+
+            <p style="text-align: center;">Shipment data</p>
+            <div id="rich" style="display: block; margin-right: auto; margin-left: auto;">
+                <textarea id="jsonArea" cols="100" rows="25"> </textarea>
+                <button onclick="prettyPrint()">beautify</button>
+            </div>
+
+            <button>Create Shipment</button>
+
+            <p id="postStatus" style="text-align: center;">Response: </p>
+            <textarea readonly style="display: none; " id="postResponseArea" cols="100" rows="25"> </textarea>
+
+        </div>
+
+        <script>
+            function openTab(evt, eventName) {
+                // Declare all variables
+                var i, tabcontent, tablinks;
+
+                // Get all elements with class="tabcontent" and hide them
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+
+                // Get all elements with class="tablinks" and remove the class "active"
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+
+                // Show the current tab, and add an "active" class to the button that opened the tab
+                document.getElementById(eventName).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+
+            function prettyPrint() {
+                var ugly = document.getElementById('jsonArea').value;
+                var obj = JSON.parse(ugly);
+                var pretty = JSON.stringify(obj, undefined, 4)
+                document.getElementById('jsonArea').value = pretty;
+            }
+
+
+
+            function isJson(str) {
+
+                try {
+                    JSON.parse(str);
+                } catch (e) {
+                    return false;
+                }
+
+                return true;
+            }
+        </script>
     </div>
-
-    <script>
-        function openTab(evt, eventName) {
-            // Declare all variables
-            var i, tabcontent, tablinks;
-
-            // Get all elements with class="tabcontent" and hide them
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-
-            // Get all elements with class="tablinks" and remove the class "active"
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-
-            // Show the current tab, and add an "active" class to the button that opened the tab
-            document.getElementById(eventName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
-
-        function prettyPrint() {
-            var ugly = document.getElementById('jsonArea').value;
-            var obj = JSON.parse(ugly);
-            var pretty = JSON.stringify(obj, undefined, 4)
-            document.getElementById('jsonArea').value = pretty;
-        }
-
-        
-
-        function isJson(str) {
-
-            try {
-                JSON.parse(str);
-            } catch (e) {
-                return false;
-            }
-
-            return true;
-        }
-    </script>
 </body>
 
 
