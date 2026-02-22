@@ -2,95 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Countdown to 27 February, 11:00</title>
+  <title>Pastel Galaxy Countdown</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500&family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #ffe6f0, #f3e8ff);
       overflow: hidden;
       position: relative;
+      padding: 20px;
+      background: radial-gradient(ellipse at bottom, #fdf4ff 0%, #e9e4ff 100%);
     }
 
-    /* Sparkle background */
+    /* 🌸 Pastel nebula glow */
     body::before {
       content: "";
       position: absolute;
       width: 200%;
       height: 200%;
-      background-image: radial-gradient(white 1px, transparent 1px);
-      background-size: 50px 50px;
-      opacity: 0.2;
-      animation: sparkleMove 60s linear infinite;
+      background:
+        radial-gradient(circle at 25% 30%, rgba(255,182,230,0.4), transparent 40%),
+        radial-gradient(circle at 70% 60%, rgba(190,170,255,0.35), transparent 40%),
+        radial-gradient(circle at 50% 80%, rgba(170,220,255,0.3), transparent 40%);
+      animation: nebulaMove 30s ease-in-out infinite alternate;
     }
 
-    @keyframes sparkleMove {
-      from { transform: translate(0,0); }
-      to { transform: translate(-200px,-200px); }
+    @keyframes nebulaMove {
+      from { transform: translate(-5%, -5%) scale(1); }
+      to { transform: translate(5%, 5%) scale(1.1); }
+    }
+
+    /* ✨ Twinkling sparkles layer */
+    body::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.9) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: twinkle 4s ease-in-out infinite alternate;
+      opacity: 0.4;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.2; }
+      to { opacity: 0.6; }
     }
 
     .container {
       position: relative;
-      background: rgba(255, 255, 255, 0.8);
-      backdrop-filter: blur(14px);
-      padding: 70px 90px;
-      border-radius: 40px;
+      background: rgba(255, 255, 255, 0.65);
+      backdrop-filter: blur(18px);
+      padding: clamp(30px, 6vw, 70px) clamp(25px, 6vw, 90px);
+      border-radius: 30px;
       text-align: center;
-      box-shadow: 0 15px 50px rgba(214, 150, 255, 0.25);
+      width: min(95%, 600px);
+      box-shadow: 0 20px 60px rgba(200,170,255,0.25);
       animation: fadeIn 1.5s ease-in-out;
-    }
-
-    /* Glowing animated border */
-    .container::before {
-      content: "";
-      position: absolute;
-      inset: -3px;
-      border-radius: 45px;
-      background: linear-gradient(45deg, #ffb6e6, #d6b3ff, #ffd6f5);
-      z-index: -1;
-      filter: blur(12px);
-      animation: glowRotate 6s linear infinite;
-    }
-
-    @keyframes glowRotate {
-      0% { filter: blur(12px) hue-rotate(0deg); }
-      100% { filter: blur(12px) hue-rotate(360deg); }
     }
 
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 2.4em;
-      color: #b65fcf;
-      margin-bottom: 45px;
+      font-size: clamp(1.5em, 5vw, 2.4em);
+      margin-bottom: clamp(25px, 5vw, 45px);
       letter-spacing: 1px;
+      background: linear-gradient(90deg, #ff9edb, #bfa8ff, #8fd3ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .countdown-wrapper {
       display: flex;
-      gap: 25px;
+      gap: clamp(10px, 3vw, 25px);
       justify-content: center;
+      flex-wrap: wrap;
     }
 
     .time-box {
-      background: white;
-      padding: 25px 30px;
-      border-radius: 22px;
-      min-width: 100px;
-      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      background: rgba(255, 255, 255, 0.8);
+      padding: clamp(15px, 4vw, 25px);
+      border-radius: 20px;
+      min-width: 70px;
+      flex: 1 1 70px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 30px rgba(190,170,255,0.2);
     }
 
+    /* ✨ Glow shimmer on numbers */
     .number {
-      font-size: 2.3em;
+      font-size: clamp(1.5em, 6vw, 2.3em);
       font-weight: 500;
-      color: #d16ba5;
+      color: #a685ff;
+      animation: numberGlow 3s ease-in-out infinite alternate;
       transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    @keyframes numberGlow {
+      from { text-shadow: 0 0 5px rgba(190,170,255,0.4); }
+      to { text-shadow: 0 0 18px rgba(190,170,255,0.9); }
     }
 
     .number.animate {
@@ -99,11 +116,11 @@
     }
 
     .label {
-      font-size: 0.8em;
+      font-size: clamp(0.6em, 2.5vw, 0.8em);
       margin-top: 6px;
-      color: #888;
       letter-spacing: 1px;
       text-transform: uppercase;
+      color: #9a90c8;
     }
 
     @keyframes fadeIn {
@@ -115,26 +132,26 @@
 <body>
 
   <div class="container">
-    <h1>Countdown to 27 February, 11:00</h1>
+    <h1>27 February • 11:00</h1>
 
     <div class="countdown-wrapper">
       <div class="time-box">
-        <div id="days" class="number">0</div>
+        <div id="days" class="number">00</div>
         <div class="label">Days</div>
       </div>
 
       <div class="time-box">
-        <div id="hours" class="number">0</div>
+        <div id="hours" class="number">00</div>
         <div class="label">Hours</div>
       </div>
 
       <div class="time-box">
-        <div id="minutes" class="number">0</div>
+        <div id="minutes" class="number">00</div>
         <div class="label">Minutes</div>
       </div>
 
       <div class="time-box">
-        <div id="seconds" class="number">0</div>
+        <div id="seconds" class="number">00</div>
         <div class="label">Seconds</div>
       </div>
     </div>
@@ -143,8 +160,12 @@
   <script>
     var targetDate = new Date(2026, 1, 27, 11, 0, 0);
 
+    function format(value) {
+      return value < 10 ? "0" + value : value;
+    }
+
     function animateChange(element, value) {
-      if (element.innerHTML != value) {
+      if (element.innerHTML !== value) {
         element.classList.add("animate");
         setTimeout(function() {
           element.innerHTML = value;
@@ -159,7 +180,7 @@
 
       if (diff <= 0) {
         document.querySelector(".container").innerHTML =
-          "<h1>💖 The Moment Has Arrived 💖</h1>";
+          "<h1>🌸 The Stars Have Aligned 🌸</h1>";
         clearInterval(timer);
         return;
       }
@@ -169,10 +190,10 @@
       var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
       var seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-      animateChange(document.getElementById("days"), days);
-      animateChange(document.getElementById("hours"), hours);
-      animateChange(document.getElementById("minutes"), minutes);
-      animateChange(document.getElementById("seconds"), seconds);
+      animateChange(document.getElementById("days"), format(days));
+      animateChange(document.getElementById("hours"), format(hours));
+      animateChange(document.getElementById("minutes"), format(minutes));
+      animateChange(document.getElementById("seconds"), format(seconds));
     }
 
     var timer = setInterval(updateCountdown, 1000);
