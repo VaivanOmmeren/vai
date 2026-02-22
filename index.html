@@ -1,96 +1,41 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="extern.css">
+  <meta charset="UTF-8">
+  <title>Countdown to 27 February, 11:00</title>
 </head>
-
 <body>
-    <div class="superWrapper">
-        <marquee>
-            <h1 class="blink_me" style='text-align: center;'>Fontys Application</h1>
-        </marquee>
+  <h1>Countdown to 27 February, 11:00</h1>
+  <div id="countdown">Calculating…</div>
 
-        <p style="text-align: center;">API Key:</p>
-        <input id="X-API-KEY" style="display: block; margin-right: auto; margin-left: auto;"> </input>
+  <script>
+    // year, month(0=Jan,1=Feb), day, hour, minute, second
+    var targetDate = new Date(2026, 1, 27, 11, 0, 0);
 
-        <div class="tab">
-            <button class="tablinks" onclick="openTab(event, 'GET')">GET shipment</button>
-            <button class="tablinks" onclick="openTab(event, 'POST')">POST shipment</button>
-        </div>
+    function updateCountdown() {
+      var now = new Date().getTime();
+      var diff = targetDate.getTime() - now;
 
-        <div id="GET" class="tabcontent">
-            <h3>GET Shipment</h3>
+      if (diff <= 0) {
+        document.getElementById("countdown").innerHTML = "Time reached!";
+        clearInterval(timer);
+        return;
+      }
 
-            <p style="text-align: center;">Shipment ID</p>
-            <input id="shipmentGETId" style="display: block; margin-right: auto; margin-left: auto;"> </input>
+      var days    = Math.floor(diff / (1000 * 60 * 60 * 24));
+      var hours   = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      var minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      var seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-            <button>Get shipment</button>
+      document.getElementById("countdown").innerHTML =
+        days + "d " +
+        hours + "h " +
+        minutes + "m " +
+        seconds + "s";
+    }
 
-            <p id="getStatus" style="text-align: center;">Response: </p>
-            <textarea readonly style="display: none; " id="responseArea" cols="100" rows="25"> </textarea>
-        </div>
-
-        <div id="POST" class="tabcontent">
-            <h3>POST Shipment</h3>
-
-            <p style="text-align: center;">Shipment data</p>
-            <div id="rich" style="display: block; margin-right: auto; margin-left: auto;">
-                <textarea id="jsonArea" cols="100" rows="25"> </textarea>
-                <button onclick="prettyPrint()">beautify</button>
-            </div>
-
-            <button>Create Shipment</button>
-
-            <p id="postStatus" style="text-align: center;">Response: </p>
-            <textarea readonly style="display: none; " id="postResponseArea" cols="100" rows="25"> </textarea>
-
-        </div>
-
-        <script>
-            function openTab(evt, eventName) {
-                // Declare all variables
-                var i, tabcontent, tablinks;
-
-                // Get all elements with class="tabcontent" and hide them
-                tabcontent = document.getElementsByClassName("tabcontent");
-                for (i = 0; i < tabcontent.length; i++) {
-                    tabcontent[i].style.display = "none";
-                }
-
-                // Get all elements with class="tablinks" and remove the class "active"
-                tablinks = document.getElementsByClassName("tablinks");
-                for (i = 0; i < tablinks.length; i++) {
-                    tablinks[i].className = tablinks[i].className.replace(" active", "");
-                }
-
-                // Show the current tab, and add an "active" class to the button that opened the tab
-                document.getElementById(eventName).style.display = "block";
-                evt.currentTarget.className += " active";
-            }
-
-            function prettyPrint() {
-                var ugly = document.getElementById('jsonArea').value;
-                var obj = JSON.parse(ugly);
-                var pretty = JSON.stringify(obj, undefined, 4)
-                document.getElementById('jsonArea').value = pretty;
-            }
-
-
-
-            function isJson(str) {
-
-                try {
-                    JSON.parse(str);
-                } catch (e) {
-                    return false;
-                }
-
-                return true;
-            }
-        </script>
-    </div>
+    var timer = setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
 </body>
-
-
-
 </html>
